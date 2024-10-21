@@ -8,9 +8,16 @@ const requestedScopes = {
     scopes: ["User.Read"]
 }
 
+interface UserInfo {
+    id: string;
+    username: string;
+    email: string;
+    provider: 'microsoft';
+}
+
 const msalInstance = new msal.PublicClientApplication({
     auth: {
-        clientId: process.env.VUE_APP_OAUTH_CLIENT_ID
+        clientId: process.env.VUE_APP_MICROSOFT_OAUTH_CLIENT_ID
     },
     cache: {
         cacheLocation: "sessionStorage"
@@ -21,7 +28,15 @@ export async function initializeMsalInstance() {
     try {
         await msalInstance.initialize();
         const account = msalInstance.getActiveAccount();
-        if (account) store.commit('setUser', account);
+        if (account) {
+            const user: UserInfo = {
+                id: account.localAccountId,
+                username: account.username,
+                email: account.username,
+                provider: 'microsoft',
+            };
+            store.commit('setUser', user);
+        }
     } catch (error) {
         console.error('Error initializing MSAL instance:', error);
         throw error;
@@ -33,6 +48,15 @@ export async function signInAndGetUser () {
 
     const authResult = await msalInstance.loginPopup(requestedScopes)
     msalInstance.setActiveAccount(authResult.account)
-    store.commit('setUser', authResult.account);
+    const user: UserInfo = {
+        id: authResult.account.localAccountId,
+        username: authResult.account.username,
+        email: authResult.account.username,
+        provider: 'microsoft',
+    };
+    store.commit('setUser', user);
+
     return authResult.account
 }
+
+export { msalInstance };
