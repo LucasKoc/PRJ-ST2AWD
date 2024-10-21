@@ -43,7 +43,7 @@ export default defineComponent({
       @click="handleClick">
     <slot></slot>
 
-    <font-awesome-icon class="icon" v-if="icon" :icon="['fas', icon]" :style="{color: 'white'}" />
+    <font-awesome-icon class="icon" v-if="icon" :icon="['google', 'microsoft'].includes(icon) ? ['fab', icon] : ['fas', icon]" :style="{color: 'white'}" />
   </button>
 </template>
 
