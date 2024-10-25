@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
-import ConversationsIndexPage from '@/pages/ConversationsIndexPage.vue';
-import ConversationShowPage from '@/pages/ConversationShowPage.vue';
+import NotFound from '@/pages/NotFound.vue';
 import store from '@/store';
 
 const routes: Array<RouteRecordRaw> = [
@@ -9,19 +8,29 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'Home',
         component: HomePage,
+        meta: {
+            title: 'Home',
+        },
     },
     {
-        path: '/conversations',
-        name: 'ConversationsIndex',
-        component: ConversationsIndexPage,
-        meta: { requiresAuth: true },
+      path: '/panel',
+        name: 'Panel',
+        component: HomePage,
+        meta: {
+            requiresAuth: true,
+            title: 'Panel',
+        },
     },
     {
-        path: '/conversations/:id',
-        name: 'ConversationShow',
-        component: ConversationShowPage,
-        meta: { requiresAuth: true },
-    },
+        // Create a new route for 404 page
+        path: '/:pathMatch(.*)*',
+        name: '404 - Page not found',
+        component: NotFound,
+        meta: {
+            title: '404 - Page not found',
+        },
+    }
+
 ];
 
 const router = createRouter({
@@ -38,6 +47,11 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }
+});
+
+router.beforeEach((to, from, next) => {
+    document.title = `${to.meta?.title ?? to.name} | PRJ-ST2AWD`;
+    next();
 });
 
 export default router;
