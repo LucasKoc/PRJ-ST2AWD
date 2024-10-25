@@ -36,11 +36,6 @@ export default defineComponent ({
     </div>
 
     <div v-if="isLoggedIn">
-      <router-link to="/conversations" class="nav-link">
-        <BaseButton icon="comments" role="button" color="primary">
-          Conversations
-        </BaseButton>
-      </router-link>
     </div>
   </div>
 
