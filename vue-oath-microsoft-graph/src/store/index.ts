@@ -1,8 +1,14 @@
 import { createStore } from 'vuex';
-import { AccountInfo } from '@azure/msal-browser';
+
+export interface UserInfo {
+    id: string;
+    username: string;
+    email: string;
+    provider: 'microsoft' | 'google';
+}
 
 export interface State {
-    user: AccountInfo | null;
+    user: UserInfo | null;
 }
 
 export default createStore<State>({
@@ -10,7 +16,7 @@ export default createStore<State>({
         user: null,
     },
     mutations: {
-        setUser(state, user: AccountInfo | null) {
+        setUser(state, user: UserInfo | null) {
             state.user = user;
         },
     },
