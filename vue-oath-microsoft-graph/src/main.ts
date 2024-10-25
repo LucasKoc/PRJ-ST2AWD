@@ -16,11 +16,22 @@ import vue3GoogleLogin from 'vue3-google-login'
 
 const googleClientId = process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID;
 
+function defineColorScheme() {
+    const prefScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', prefScheme);
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    });
+}
+
 async function bootstrap() {
     library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft);
 
     await initializeMsalInstance();
     await initializeGoogleAuth();
+
+    defineColorScheme();
 
     const app = createApp(App);
     app.use(store)
