@@ -6,20 +6,27 @@ import router from "@/router";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faHouse, faUser, faCircleNotch, faComments } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle, faMicrosoft } from '@fortawesome/free-brands-svg-icons'
 
 // Color Palette
 import './assets/css/base.css'
 import {initializeMsalInstance} from "@/lib/microsoftGraph";
+import { initializeGoogleAuth } from '@/lib/googleAuth';
+import vue3GoogleLogin from 'vue3-google-login'
+
+const googleClientId = process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID;
 
 async function bootstrap() {
-    library.add(faHouse, faUser, faCircleNotch, faComments);
+    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft);
 
     await initializeMsalInstance();
+    await initializeGoogleAuth();
 
-    createApp(App)
-        .use(store)
+    const app = createApp(App);
+    app.use(store)
         .use(router)
-        .component('font-awesome-icon', FontAwesomeIcon) // Register the component here
+        .use(vue3GoogleLogin, googleClientId)
+        .component('font-awesome-icon', FontAwesomeIcon)
         .mount('#app');
 }
 

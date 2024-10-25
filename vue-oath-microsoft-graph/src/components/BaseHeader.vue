@@ -4,10 +4,12 @@ import SignInButton from "@/components/SignInButton.vue";
 import { defineComponent } from 'vue';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import SignOutButton from "@/components/SignOutButton.vue";
 
 export default defineComponent ({
   name: "BaseHeader",
   components: {
+    SignOutButton,
     BaseButton,
     SignInButton,
   },
@@ -34,17 +36,15 @@ export default defineComponent ({
     </div>
 
     <div v-if="isLoggedIn">
-      <router-link to="/conversations" class="nav-link">
-        <BaseButton icon="comments" role="button" color="primary">
-          Conversations
-        </BaseButton>
-      </router-link>
     </div>
   </div>
 
   <div class="header-container">
-    <div>
-      <SignInButton role="button" color="primary" icon="user">Sign in</SignInButton>
+    <div v-if="!isLoggedIn">
+      <SignInButton color="primary" icon="user">Sign in</SignInButton>
+    </div>
+    <div v-else>
+      <SignOutButton color="primary" icon="user"></SignOutButton>
     </div>
   </div>
 </div>

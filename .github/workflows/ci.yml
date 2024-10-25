@@ -1,0 +1,37 @@
+name: 'CI'
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Install dependencies
+      - name: Install dependencies
+        working-directory: ./vue-oath-microsoft-graph
+        run: npm install
+
+      # Run TypeScript compilation
+      - name: Run TypeScript Build
+        working-directory: ./vue-oath-microsoft-graph
+        run: npm run build
+
+      # Run TypeScript report
+      - name: TypeScript report
+        uses: fersilva16/ts-report-action@1.2.1
+        with:
+          project: ./vue-oath-microsoft-graph/tsconfig.json

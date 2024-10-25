@@ -35,13 +35,13 @@ export default defineComponent({
 
   methods: {
     handleClick() {
-      const originalOnClick = this.$attrs.onClick as unknown as () => Promise<void>;
+      const originalOnClick = this.$attrs.onClick as unknown as () => any;
       this.isPending = true;
-      originalOnClick().finally(() => {
+      Promise.resolve(originalOnClick()).finally(() => {
         this.isPending = false;
       });
-    }
-  }
+    },
+  },
 });
 </script>
 
