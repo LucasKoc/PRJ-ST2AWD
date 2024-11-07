@@ -16,9 +16,10 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "primary",
+      default: "error",
       validator: (value: string): boolean => {
-        return ["primary", "warn", "danger"].includes(value);
+        return ["primary", "secondary", "accent", "ghost", "info", "success", "warning", "error"]
+            .includes(value);
       },
     },
     icon: {
@@ -47,13 +48,10 @@ export default defineComponent({
 
 <template>
     <base-button :disabled="disabled || isPending" @click.stop.prevent="handleClick" :icon="icon" :color="color">
-      <font-awesome-icon class="icon" v-if="isPending" :icon="['fas', 'circle-notch']" :style="{color: 'white'}" pulse/>
+      <span v-if="isPending" class="loading loading-spinner loading-xs"></span>
       <slot/>
     </base-button>
 </template>
 
 <style scoped>
-.icon {
-  margin-left: 0.5em;
-}
 </style>

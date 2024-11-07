@@ -1,6 +1,6 @@
 <script lang="ts">
-import { defineComponent, computed} from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent, computed} from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "HomePage",
@@ -19,32 +19,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="main">
-    <div>
-      <p>Here is the content of the HomePage</p>
-    </div>
-
-    <div>
-      <p v-if="user">User connected: {{ user.username }}</p>
-    </div>
+  <div>
+    <h1>HomePage.vue</h1>
+    <p>Welcome {{ user }}</p>
   </div>
 </template>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
 
-div.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 </style>
