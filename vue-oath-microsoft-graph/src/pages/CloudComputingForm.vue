@@ -7,7 +7,6 @@ import {
   calculateCloudComputingMemoryFootprint,
   getCloudComputingProviders,
 } from '@/lib/climatiqService';
-import { useStore } from 'vuex';
 import AsyncButton from '@/components/AsyncButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -18,7 +17,6 @@ export default defineComponent({
     FontAwesomeIcon,
   },
   setup() {
-    const store = useStore();
     const loading = ref(false);
     const result = ref(null);
 
@@ -165,8 +163,6 @@ export default defineComponent({
           default:
             throw new Error('Invalid calculation method selected.');
         }
-
-        store.commit('setEmissionResult', response);
 
         result.value = response;
       } catch (error) {
