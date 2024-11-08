@@ -3,6 +3,7 @@ import HomePage from '@/pages/HomePage.vue';
 import NotFound from '@/pages/NotFound.vue';
 import store from '@/store';
 import CloudComputingForm from "@/pages/CloudComputingForm.vue";
+import FlightActivityForm from "@/pages/FlightActivityForm.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -29,6 +30,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: true,
             title: 'Cloud Computing Form',
+        },
+    },
+    {
+      path: '/flight-activity/',
+        name: 'Flight Activity',
+        component: FlightActivityForm,
+        meta: {
+            requiresAuth: true,
+            title: 'Flight Activity',
         },
     },
     {
