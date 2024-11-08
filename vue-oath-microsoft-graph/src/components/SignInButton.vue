@@ -37,6 +37,7 @@ export default defineComponent({
       try {
         const newUser = await signInAndGetUser();
         store.commit('setUser', newUser);
+        window.location.reload();
       } catch (error) {
         console.error('Error during Microsoft sign-in:', error);
       }
