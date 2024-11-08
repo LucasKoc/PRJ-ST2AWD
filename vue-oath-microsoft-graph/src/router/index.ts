@@ -4,6 +4,7 @@ import NotFound from '@/pages/NotFound.vue';
 import store from '@/store';
 import CloudComputingForm from "@/pages/CloudComputingForm.vue";
 import FlightActivityForm from "@/pages/FlightActivityForm.vue";
+import CustomActivity from "@/pages/CustomActivityForm.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -39,6 +40,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: true,
             title: 'Flight Activity',
+        },
+    },
+    {
+      path: '/custom-activity/',
+        name: 'Custom Activity',
+        component: CustomActivity,
+        meta: {
+            requiresAuth: true,
+            title: 'Custom Activity',
         },
     },
     {

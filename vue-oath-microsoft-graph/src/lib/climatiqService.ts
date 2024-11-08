@@ -249,6 +249,50 @@ export async function calculatePassengerFlightEmissions(origin: string, destinat
         throw error;
     }
 }
+
 /*
  * Custom activities
  */
+
+export async function calculateCustomActivityEmissions(label: string, energy: number, energyUnit: string, region: string) {
+    /**
+     * Calculate emissions for a custom mapped activity.
+     * Endpoint: POST https://api.climatiq.io/custom-mappings/v1/estimate
+     * @param {string} label - Label for the custom activity.
+     * @param {number} money - Monetary value of the activity.
+     * @param {string} region - Region for the custom activity.
+     * @returns {object} - Emission estimate response from Climatiq.
+     * @throws {Error} - An error occurred while fetching the data.
+     */
+    try {
+        const response = await fetch('https://api.climatiq.io/custom-mappings/v1/estimate', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.VUE_APP_CLIMATIQ_API_KEY}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                custom_mapping: {
+                    label,
+                    data_version: "0.0",
+                    region,
+                },
+                activity: {
+                    energy,
+                    energy_unit: energyUnit,
+                },
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("API Error Response:", errorData);
+            throw new Error(`API Error: ${errorData.message || response.statusText}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error in calculateCustomActivityEmissions:", error);
+        throw error;
+    }
+}

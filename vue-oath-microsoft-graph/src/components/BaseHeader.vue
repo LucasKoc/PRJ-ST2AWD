@@ -40,9 +40,12 @@ export default defineComponent ({
     <router-link to="/flight-activity" class="nav-link" v-if="isLoggedIn">
       <BaseButton icon="plane" role="button" color="default">Flight Activity</BaseButton>
     </router-link>
+    <router-link to="/custom-activity" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="hammer" role="button" color="default">Custom Activity</BaseButton>
+    </router-link>
   </div>
 
-  <div class="navbar-center">
+  <div v-if="!isLoggedIn" class="navbar-center">
     <div class="btn btn-ghost text-info">
       Climatiq Project
     <font-awesome-icon icon="earth-americas" class="text-info"></font-awesome-icon>
