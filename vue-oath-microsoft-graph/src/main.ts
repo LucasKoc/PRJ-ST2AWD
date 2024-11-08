@@ -14,7 +14,8 @@ import {
     faCloud,
     faLeaf,
     faCalculator,
-    faPlane
+    faPlane,
+    faHammer
 } from "@fortawesome/free-solid-svg-icons"
 import { faGoogle, faMicrosoft } from "@fortawesome/free-brands-svg-icons"
 
@@ -49,7 +50,7 @@ async function bootstrap() {
      * It creates the app and mounts it to the DOM
      * @returns {Promise<void>}
      */
-    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft, faEarthAmericas, faCloud, faLeaf, faCalculator, faPlane);
+    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft, faEarthAmericas, faCloud, faLeaf, faCalculator, faPlane, faHammer);
 
     await initializeMsalInstance();
     await initializeGoogleAuth();
