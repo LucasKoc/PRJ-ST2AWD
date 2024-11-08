@@ -17,7 +17,7 @@ interface UserInfo {
 
 const msalInstance = new msal.PublicClientApplication({
     auth: {
-        clientId: process.env.VUE_APP_MICROSOFT_OAUTH_CLIENT_ID
+        clientId: process.env.VUE_APP_MICROSOFT_OAUTH_CLIENT_ID ?? "",
     },
     cache: {
         cacheLocation: "sessionStorage"
@@ -25,6 +25,11 @@ const msalInstance = new msal.PublicClientApplication({
 })
 
 export async function initializeMsalInstance() {
+    /**
+     * Initialize the MSAL instance
+     * If the user is already logged in, set the user in the store
+     * If the user is not logged in, do nothing
+     */
     try {
         await msalInstance.initialize();
         const account = msalInstance.getActiveAccount();
@@ -44,6 +49,9 @@ export async function initializeMsalInstance() {
 }
 
 export async function signInAndGetUser () {
+    /**
+     * Sign in the user and get the user's information
+     */
     await initializeMsalInstance();
 
     const authResult = await msalInstance.loginPopup(requestedScopes)

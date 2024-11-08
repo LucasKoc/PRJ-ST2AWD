@@ -5,10 +5,12 @@ import { defineComponent } from 'vue';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import SignOutButton from "@/components/SignOutButton.vue";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default defineComponent ({
   name: "BaseHeader",
   components: {
+    FontAwesomeIcon,
     SignOutButton,
     BaseButton,
     SignInButton,
@@ -27,56 +29,43 @@ export default defineComponent ({
 </script>
 
 <template>
-<div id="header">
-  <div class="header-container">
-    <div>
-      <router-link to="/" class="nav-link">
-        <BaseButton icon="house" role="button" color="primary">Home</BaseButton>
-      </router-link>
-    </div>
+<header class="navbar bg-base-300 text-neutral-content">
+  <div class="navbar-start ml-2 flex space-x-2">
+    <router-link to="/" class="nav-link">
+      <BaseButton icon="house" role="button" color="accent">Home</BaseButton>
+    </router-link>
+    <router-link to="/cloud-computing" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="cloud" role="button" color="default">Cloud Computing</BaseButton>
+    </router-link>
+    <router-link to="/flight-activity" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="plane" role="button" color="default">Flight Activity</BaseButton>
+    </router-link>
+    <router-link to="/custom-activity" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="hammer" role="button" color="default">Custom Activity</BaseButton>
+    </router-link>
+    <router-link to="/emission-chart" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="chart-line" role="button" color="default">Emission Chart</BaseButton>
+    </router-link>
+  </div>
 
-    <div v-if="isLoggedIn">
+  <div v-if="!isLoggedIn" class="navbar-center">
+    <div class="btn btn-ghost text-info">
+      Climatiq Project
+    <font-awesome-icon icon="earth-americas" class="text-info"></font-awesome-icon>
     </div>
   </div>
 
-  <div class="header-container">
+  <div class="navbar-end mr-2">
     <div v-if="!isLoggedIn">
       <SignInButton color="primary" icon="user">Sign in</SignInButton>
     </div>
     <div v-else>
-      <SignOutButton color="primary" icon="user"></SignOutButton>
+      <SignOutButton color="secondary" icon="user"></SignOutButton>
     </div>
   </div>
-</div>
+</header>
 </template>
 
 <style scoped>
-
-#header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1em 2em 1em 2em;
-  background-color: var(--vt-c-brand);
-
-  height: 3vh;
-}
-
-.header-container {
-  display: inline-flex;
-}
-
-.header-container div {
-  display: flex;
-  align-items: center;
-  margin: 0 0.5em 0 0.5em;
-}
-
-p {
-  color: var(--vt-c-white-soft);
-}
-
-.nav-link {
-  text-decoration: none;
-}
 
 </style>

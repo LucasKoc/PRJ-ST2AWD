@@ -15,7 +15,8 @@ export default defineComponent({
       type: String,
       default: "primary",
       validator: (value: string): boolean => {
-        return ["primary", "warn", "danger"].includes(value);
+        return ["primary", "secondary", "accent", "ghost", "info", "success", "warning", "error"]
+            .includes(value);
       },
     },
     icon: {
@@ -36,6 +37,7 @@ export default defineComponent({
       try {
         const newUser = await signInAndGetUser();
         store.commit('setUser', newUser);
+        window.location.reload();
       } catch (error) {
         console.error('Error during Microsoft sign-in:', error);
       }
@@ -62,7 +64,7 @@ export default defineComponent({
 
 <template>
   <!--<async-button role="button" :color="color" @click="handleSignIn" :disabled="this.disabled" :icon="icon"> {{ user ? "Signed as " + user.username : "Sign in" }}</async-button>-->
-  <div v-if="!isLoggedIn">
+  <div v-if="!isLoggedIn" class="flex space-x-2">
     <async-button role="button" :color="color" @click="handleMicrosoftSignIn" :disabled="isDisabled('microsoft')" icon="microsoft">Sign in with Microsoft</async-button>
     <async-button role="button" :color="color" @click="handleGoogleSignIn" :disabled="isDisabled('google')" icon="google">Sign in with Google</async-button>
   </div>
