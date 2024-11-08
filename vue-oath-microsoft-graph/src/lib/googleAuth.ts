@@ -71,7 +71,7 @@ export function signOutFromGoogle() {
         google.accounts.oauth2.revoke(<string>localStorage.getItem('google_access_token'), () => {
             localStorage.removeItem('google_access_token');
             console.log('Google token revoked');
-            store.commit('setUser', null);
         });
     });
+    store.commit('setUser', null);
 }
