@@ -167,7 +167,88 @@ export async function calculateCloudComputingMemoryFootprint(provider: string, r
  * Flights activity
  */
 
+export async function calculateCargoFlightEmissions(origin: string, destination: string, weight: number, aircraft: string ="belly_freight", radiativeForcingIndex: number = 2) {
+    /**
+     * Calculate the carbon footprint of a flight
+     * Endpoint: POST https://api.climatiq.io/freight/v2/intermodal
+     * @param {string} origin - The City or IATA code of the origin airport
+     * @param {string} destination - The City or IATA code of the destination airport
+     * @param {number} weight - The weight of the cargo in T
+     * @param {string} aircraft - The type of aircraft used for the flight (freighter or belly_freight)
+     * @param {number} radiativeForcingIndex - The radiative forcing index (RFI) of the flight (default: 2)
+     * @returns {object} - The carbon footprint of the flight
+     * @throws {Error} - An error occurred while fetching the data
+     */
+    try {
+        const response = await fetch('https://api.climatiq.io/freight/v2/intermodal', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.VUE_APP_CLIMATIQ_API_KEY}`,
+                'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                cargo: {
+                    weight,
+                    weight_unit: 't',
+                },
+                route: [
+                    { location: {iata: origin} },
+                    {
+                        transport_mode: "air",
+                        leg_details:
+                            {
+                                aircraft_type: aircraft,
+                                radiative_forcing_index: radiativeForcingIndex,
+                            }
+                    },
+                    { location: {iata: destination} }
+                ],
+            }),
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error in calculateFlightFootprint: ", error);
+        throw error;
+    }
+}
 
+export async function calculatePassengerFlightEmissions(origin: string, destination: string, travel_mode: string = "air") {
+    /**
+     * Calculate the carbon footprint of a flight
+     * Endpoint: POST https://preview.api.climatiq.io/travel/v1-preview1/distance
+     * @param {string} origin - The City or IATA code of the origin airport
+     * @param {string} destination - The City or IATA code of the destination airport
+     * @param {string} travel_mode - The mode of transport (default: air)
+     * @returns {object} - The carbon footprint of the flight
+     * @throws {Error} - An error occurred while fetching the data
+     */
+    try {
+        const response = await fetch('https://preview.api.climatiq.io/travel/v1-preview1/distance', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.VUE_APP_CLIMATIQ_API_KEY}`,
+                'Content-Type': 'application/json',
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                origin: {iata: origin},
+                destination: {iata: destination},
+                travel_mode,
+            }),
+        });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+    } catch (error) {
+        console.error("Error in calculateFlightFootprint: ", error);
+        throw error;
+    }
+}
 /*
  * Custom activities
  */

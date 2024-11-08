@@ -37,6 +37,9 @@ export default defineComponent ({
     <router-link to="/cloud-computing" class="nav-link" v-if="isLoggedIn">
       <BaseButton icon="cloud" role="button" color="default">Cloud Computing</BaseButton>
     </router-link>
+    <router-link to="/flight-activity" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="plane" role="button" color="default">Flight Activity</BaseButton>
+    </router-link>
   </div>
 
   <div class="navbar-center">
