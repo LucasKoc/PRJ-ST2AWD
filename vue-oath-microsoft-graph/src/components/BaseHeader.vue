@@ -30,9 +30,12 @@ export default defineComponent ({
 
 <template>
 <header class="navbar bg-base-300 text-neutral-content">
-  <div class="navbar-start ml-2">
+  <div class="navbar-start ml-2 flex space-x-2">
     <router-link to="/" class="nav-link">
       <BaseButton icon="house" role="button" color="accent">Home</BaseButton>
+    </router-link>
+    <router-link to="/cloud-computing" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="cloud" role="button" color="default">Cloud Computing</BaseButton>
     </router-link>
   </div>
 

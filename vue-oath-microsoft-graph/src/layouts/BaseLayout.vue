@@ -15,7 +15,7 @@ export default defineComponent ({
 <template>
   <div class="layout min-h-screen flex flex-col">
     <base-header/>
-    <div class="container">
+    <div class="flex-grow">
       <slot></slot>
     </div>
     <base-footer />
@@ -32,4 +32,9 @@ export default defineComponent ({
 footer {
   margin-top: auto;
 }
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 </style>

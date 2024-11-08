@@ -5,7 +5,16 @@ import router from "@/router";
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
-import { faHouse, faUser, faCircleNotch, faComments, faEarthAmericas } from "@fortawesome/free-solid-svg-icons"
+import {
+    faHouse,
+    faUser,
+    faCircleNotch,
+    faComments,
+    faEarthAmericas,
+    faCloud,
+    faLeaf,
+    faCalculator
+} from "@fortawesome/free-solid-svg-icons"
 import { faGoogle, faMicrosoft } from "@fortawesome/free-brands-svg-icons"
 
 // Color Palette
@@ -39,7 +48,7 @@ async function bootstrap() {
      * It creates the app and mounts it to the DOM
      * @returns {Promise<void>}
      */
-    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft, faEarthAmericas);
+    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft, faEarthAmericas, faCloud, faLeaf, faCalculator);
 
     await initializeMsalInstance();
     await initializeGoogleAuth();

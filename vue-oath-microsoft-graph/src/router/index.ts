@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
 import NotFound from '@/pages/NotFound.vue';
 import store from '@/store';
+import CloudComputingForm from "@/pages/CloudComputingForm.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -19,6 +20,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: true,
             title: 'Panel',
+        },
+    },
+    {
+        path: '/cloud-computing/',
+        name: 'Cloud Computing Form',
+        component: CloudComputingForm,
+        meta: {
+            requiresAuth: true,
+            title: 'Cloud Computing Form',
         },
     },
     {
