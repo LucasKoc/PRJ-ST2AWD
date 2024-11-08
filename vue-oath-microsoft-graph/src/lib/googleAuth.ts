@@ -11,7 +11,7 @@ interface UserInfo {
 let tokenClient: any;
 let googleAuthInitialized = false;
 
-const CLIENT_ID = process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID;
+const CLIENT_ID = process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID ?? "";
 
 export function initializeGoogleAuth() {
     if (googleAuthInitialized) return;

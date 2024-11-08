@@ -17,7 +17,7 @@ interface UserInfo {
 
 const msalInstance = new msal.PublicClientApplication({
     auth: {
-        clientId: process.env.VUE_APP_MICROSOFT_OAUTH_CLIENT_ID
+        clientId: process.env.VUE_APP_MICROSOFT_OAUTH_CLIENT_ID ?? "",
     },
     cache: {
         cacheLocation: "sessionStorage"

@@ -15,7 +15,8 @@ import {
     faLeaf,
     faCalculator,
     faPlane,
-    faHammer
+    faHammer,
+    faChartLine
 } from "@fortawesome/free-solid-svg-icons"
 import { faGoogle, faMicrosoft } from "@fortawesome/free-brands-svg-icons"
 
@@ -25,7 +26,11 @@ import {initializeMsalInstance} from "@/lib/microsoftGraph";
 import { initializeGoogleAuth } from "@/lib/googleAuth";
 import vue3GoogleLogin from "vue3-google-login"
 
-const googleClientId = process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID;
+const googleClientId = process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID || "";
+
+const googleLoginOptions = {
+    clientId: googleClientId,
+};
 
 function defineColorScheme() {
     /**
@@ -50,7 +55,7 @@ async function bootstrap() {
      * It creates the app and mounts it to the DOM
      * @returns {Promise<void>}
      */
-    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft, faEarthAmericas, faCloud, faLeaf, faCalculator, faPlane, faHammer);
+    library.add(faHouse, faUser, faCircleNotch, faComments, faGoogle, faMicrosoft, faEarthAmericas, faCloud, faLeaf, faCalculator, faPlane, faHammer, faChartLine);
 
     await initializeMsalInstance();
     await initializeGoogleAuth();
@@ -60,7 +65,7 @@ async function bootstrap() {
     const app = createApp(App);
     app.use(store)
         .use(router)
-        .use(vue3GoogleLogin, googleClientId)
+        .use(vue3GoogleLogin, googleLoginOptions)
         .component('font-awesome-icon', FontAwesomeIcon)
         .mount('#app');
 }

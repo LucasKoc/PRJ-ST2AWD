@@ -43,6 +43,9 @@ export default defineComponent ({
     <router-link to="/custom-activity" class="nav-link" v-if="isLoggedIn">
       <BaseButton icon="hammer" role="button" color="default">Custom Activity</BaseButton>
     </router-link>
+    <router-link to="/emission-chart" class="nav-link" v-if="isLoggedIn">
+      <BaseButton icon="chart-line" role="button" color="default">Emission Chart</BaseButton>
+    </router-link>
   </div>
 
   <div v-if="!isLoggedIn" class="navbar-center">

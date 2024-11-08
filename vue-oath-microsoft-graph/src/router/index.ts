@@ -5,6 +5,7 @@ import store from '@/store';
 import CloudComputingForm from "@/pages/CloudComputingForm.vue";
 import FlightActivityForm from "@/pages/FlightActivityForm.vue";
 import CustomActivity from "@/pages/CustomActivityForm.vue";
+import EmissionsChart from "@/pages/EmissionsChart.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -49,6 +50,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: true,
             title: 'Custom Activity',
+        },
+    },
+    {
+        path: '/emission-chart/',
+        name: 'Emission-chart',
+        component: EmissionsChart,
+        meta: {
+            requiresAuth: true,
+            title: 'Emission Chart',
         },
     },
     {
